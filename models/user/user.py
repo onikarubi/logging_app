@@ -7,15 +7,16 @@ Email用の値オブジェクト
 ― メールアカウントとドメイン名前後の間に"@"を必ず含む必要がある
 """
 
-
 @dataclass
-class MailAddress(object):
-    address: str
-    domain: str
-    mail_address: str = f'{address}@{domain}'
+class MailAddress:
+    _mail_address: str
 
     @property
     def mail_address(self):
-        return self.mail_address
+        if not "@" in self._mail_address:
+            raise ValueError('メールアドレスには必ず"@"をつける必要があります')
+
+        return self._mail_address
+
 
 
